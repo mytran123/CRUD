@@ -1,9 +1,13 @@
 <?php
-include_once "ProductModel.php";
+include_once "Controller/CaterogyController.php";
+include_once "Controller/ProductController.php";
 
-$productModel = new ProductModel();
-$products = $productModel->getAll();
+$productController = new ProductController();
+$categoryController = new CaterogyController();
+//$products = $productModel->getAll();
 //var_dump($products);
+//die();
+$page = (isset($_GET["page"])?$_GET["page"] : "");
 ?>
 <!doctype html>
 <html lang="en">
@@ -15,29 +19,30 @@ $products = $productModel->getAll();
     <title>Document</title>
 </head>
 <body>
-<a href="add-product.php">ADD NEW PRODUCT</a>
-    <table border="1px">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Desc</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($products as $product):?>
-            <tr>
-                <td><?php echo $product["id"]?></td>
-                <td><?php echo $product["name"]?></td>
-                <td><?php echo $product["price"]?></td>
-                <td><?php echo $product["description"]?></td>
-                <td><a href="product-detail.php?id=<?php echo $product["id"]?>">Detail</a></td>
-                <td><a onclick="return confirm('Are you sure you want to delete this product?')" href="product-delete.php?id=<?php echo $product["id"]?>">Delete</a></td>
-            </tr>
-            <?php endforeach;?>
-        </tbody>
-    </table>
+<div class="navbar">
+    <a href="index.php?page=product-list">Product</a>
+    <a href="index.php?page=category-list">Category</a>
+</div>
+<?php
+    switch ($page) {
+        case "product-list":
+            $productController->index();
+            break;
+        case "category-list":
+            $categoryController->index();
+            break;
+        case "product-create":
+            if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                //show form create
+                $productController->showFormCreate();
+            } else {
+                //tao san pham
+                $productController->create($_REQUEST);
+            }
+            break;
+        default:
+            $productController->index();
+    }
+?>
 </body>
 </html>

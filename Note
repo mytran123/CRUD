@@ -1,0 +1,15 @@
+Chuyển trang thì tạo view
+-product-list
+-category-list
+
+Controller xử lý logic-Bao nhiêu model thì bấy nhiêu Controller
+tách từ index qua
+
+-Tạo View/product-create
+thêm 1 case cho product-lise
+-mở Controller/ProductController
+thêm 2 phương thức
++showFormCreate-nhúng khung hình  +bên index $productController->shoeFormCreate
+                                  +Sau đó đổi href ở product-list là index.php?page=product-create
++create $data   +copy phần $data ở trang add-product vào
+                +bên index phan else $productController->create $_REQUEST

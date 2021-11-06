@@ -39,3 +39,10 @@ SELECT categories.name,products.* FROM `categories`
 INNER JOIN `category_product` ON categories.id = category_product.category_id
 INNER JOIN `products` ON category_product.product_id = products.id
 WHERE categories.id = 2
+
+CREATE TABLE `users`(
+    id int primary key auto_increment,
+    name varchar (255),
+    email varchar (255) unique,
+    password varchar (255)
+)
